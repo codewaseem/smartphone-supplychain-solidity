@@ -1,6 +1,6 @@
 Hashes of deployed contract on rinkeby test network
 
-Contract Address: 0xef1e425166875e1ea2dc0635bfd2fe1ef19f4d6f 
+Contract Address/Hash: 0xef1e425166875e1ea2dc0635bfd2fe1ef19f4d6f 
 TxHash: 0x81d29028f66c7163a3d668e9335bd8a6063569a0f59964a4b9f56049f27b34c0
 addManufacturer(): 0x5b59195dab81a63a3d4cdf6c640cd403e6bf156febe421f5d4582430ec848628
 manufactureComponents(): 0x78989d1d9e60ea4ef0243432ad436b2feb0c07a1c56598adffd2c9d0419618e3

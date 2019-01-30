@@ -14,6 +14,10 @@ at `HOST`:`127.0.0.1`(localhost) `PORT`:`8545`, this is the default settings.
 To run the provided tests, run the following command
 > `yarn test`
 
+## If you want to test the Front-end connected to rinkeby then everything is already setup just run the following command
+> `yarn dev`
+For testing on local network see below.
+
 ## How to deploy the smart contract to local network and start the front-end DAPP.
 To deploy the smart contract and start the front-end, run the following command.
 > `yarn deploy`
