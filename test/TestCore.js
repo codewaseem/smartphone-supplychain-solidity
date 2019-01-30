@@ -34,7 +34,7 @@ contract("Core", function (accounts) {
         await event.watch((err, res) => {
             eventEmitted = true;
         })
-        await supplyChainCore.manufactureComponents(1, "none", basePrice, { from: defaultAccount });
+        await supplyChainCore.manufactureComponents(1, "2gb ram, snapdragon cpu, 5inch display", basePrice, { from: defaultAccount });
 
         assert.equal(eventEmitted, true, "Smartphone components not manufactured");
     });
@@ -154,5 +154,12 @@ contract("Core", function (accounts) {
 
         await supplyChainCore.markReceivedByConsumer(1, { from: consumer });
         assert.equal(eventEmitted, true, "Shipped to consumer event not fired");
+    });
+
+    it("Can get the complete item information", async () => {
+        let itemInfo = await supplyChainCore.getItemInfo(1);
+        assert(itemInfo[1] == 1);
+        assert(itemInfo[5] == "2gb ram, snapdragon cpu, 5inch display");
+        assert(+itemInfo[6] == +web3.toWei(3,"ether"));
     });
 });

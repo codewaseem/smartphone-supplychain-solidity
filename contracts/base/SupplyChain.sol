@@ -87,7 +87,7 @@ contract SupplyChain is ComponentManufacturerRole, SmartphoneMakerRole, Retailer
 
 
     modifier receivedByRetailer(uint _upc) {
-        require(items[_upc].itemState == Items.State.ReceivedByRetailer);
+        require(items[_upc].itemState == Items.State.ReceivedByRetailer || items[_upc].itemState == Items.State.OnSale);
         _;
     }
 
@@ -130,12 +130,19 @@ contract SupplyChain is ComponentManufacturerRole, SmartphoneMakerRole, Retailer
 
     
     function getItemPrice(uint _upc) public view returns(uint price) {
+        require(items[_upc].price > 0, "Item price is not greater than zero");
         return items[_upc].price;
+    }
+
+    function isItemOnSale(uint _upc) public view returns(bool) {
+        return items[_upc].itemState == Items.State.OnSale;
     }
     
     function manufactureComponents(uint _upc, string  _notes, uint _price ) public onlyManufacturer() 
     {
-    
+        require(_upc!=0,"UPC can't be zero");
+        require(items[_upc].upc != _upc, "Item already exists with the given upc");
+        require(_price>0, "Price is not greater than zero");
         Items.Item memory i = Items.Item(
             sku,
             _upc,
@@ -161,10 +168,10 @@ contract SupplyChain is ComponentManufacturerRole, SmartphoneMakerRole, Retailer
     function assembleSmartphone(uint _upc, uint assemblyCost) public componentsManufactured(_upc) onlySmartphoneMaker()
 
     {
-    
 
         Items.Item storage i = items[_upc];
-
+        require(i.smartphoneMakerID == 0, "Smartphone already assembled");
+        require(assemblyCost > 0, "Assembly cost is not greater than zero");
         i.ownerID = msg.sender;
         i.price = i.price + assemblyCost;
         i.itemState = Items.State.SmartphoneAssembled;
@@ -234,6 +241,37 @@ contract SupplyChain is ComponentManufacturerRole, SmartphoneMakerRole, Retailer
         i.itemState = Items.State.ReceivedByConsumer;
 
         emit ReceivedByConsumer(_upc);
+    }
+
+    function getItemInfo(uint _upc) public view returns
+    (
+        uint    iSku, 
+        uint    iUpc,
+        address ownerID,  // Metamask-Ethereum address of the current owner as the product moves through 8 stages
+        address originID, // Metamask-Ethereum address of the Farmer
+        uint    productID,  // Product ID potentially a combination of upc + sku
+        string  productNotes, // Product Notes
+        uint    price, // Product Price
+        Items.State   itemState,  // Product State as represented in the enum above
+        address smartphoneMakerID,
+        address retailerID, // Metamask-Ethereum address of the Retailer
+        address consumerID
+    )
+     {
+        require(_upc!=0,"UPC can't be 0");
+        Items.Item memory i = items[_upc];
+        iSku = i.sku;
+        iUpc = i.upc;
+        ownerID = i.ownerID;
+        originID = i.originID;
+        productID = i.productID;
+        productNotes = i.productNotes;
+        price = i.price;
+        itemState = i.itemState;
+        smartphoneMakerID = i.smartphoneMakerID;
+        retailerID = i.retailerID;
+        consumerID = i.consumerID;
+
     }
 
 }
