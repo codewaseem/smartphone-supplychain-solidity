@@ -6,14 +6,14 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "deploy":"./node_modules/truffle/build/cli.bundled.js migrate --reset --compile-all --network development; webpack-dev-server",
-    "test": "./node_modules/truffle/build/cli.bundled.js test"
+    "test": "./node_modules/truffle/build/cli.bundled.js test",
+    "rinkeby":"./node_modules/truffle/build/cli.bundled.js migrate --reset --compile-all --network rinkeby"
   },
   "keywords": [],
   "license": "MIT",
   "dependencies": {
     "truffle": "^4.1.13",
     "solc-js": "^0.4.20",
-    "truffle-contract": "^3.0.6",
     "web3": "^0.20.7",
     "truffle-hdwallet-provider": "^1.0.2"
   },
