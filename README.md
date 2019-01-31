@@ -10,6 +10,19 @@ at `HOST`:`127.0.0.1`(localhost) `PORT`:`8545`, this is the default settings.
 3. Then you can install the dependencies by running the following from your terminal
 > `yarn install` or `npm install`
 
+## Program Version numbers
+
+`node`: v8.11.2
+
+`Ganache CLI` v6.1.8 (ganache-core: 2.2.1)
+
+`solidity`/`solc-js`:  ^0.4.20
+
+`truffle`: ^4.1.13
+
+`web3`: ^0.20.7
+
+
 ## How to run tests
 To run the provided tests, run the following command
 > `yarn test`
